@@ -1,0 +1,94 @@
+.Login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e0f2ff;
+    background-image: url('https://images.unsplash.com/photo-1547098686-9e6a8745846c');
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: center;
+
+    animation: fadeIn 1s ease-in-out;
+
+    h1 {
+        margin-bottom: 2rem;
+        font-size: 3rem;
+        font-weight: 700;
+        animation: slideInDown 1s ease-in-out;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
+        animation: slideInUp 1s ease-in-out;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: none;
+        border-radius: 0.25rem;
+        background-color: #fff;
+        font-size: 1.2rem;
+        animation: fadeIn 1s ease-in-out;
+
+        &::placeholder {
+            color: #555;
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0.25rem;
+        background-color: #33aaff;
+        color: #fff;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background-color: #66ccff;
+        }
+
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInDown {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slideInUp {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+}

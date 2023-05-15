@@ -1,0 +1,93 @@
+@import 'react-toastify/dist/ReactToastify.css';
+
+.Dashboard-container {
+  text-align: center;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    input {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .emailList {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .listEmails {
+    .field {
+      h3 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    .users {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      p {
+        flex: 1;
+        margin-right: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      button {
+        padding: 4px 8px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.ToastContainer {
+  .Toastify__toast {
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  .Toastify__toast--success {
+    background-color: #28a745;
+  }
+
+  .Toastify__toast--error {
+    background-color: #dc3545;
+  }
+}
+
+body {
+  background-color: lightblue;
+}

@@ -6,8 +6,9 @@ const verifyToken = async (req, res, next) => {
         jwt.verify(token, 'admin4123');
         next();
     } catch (error) {
-        return res.status(403).json({ success: false });
+        return res.status(403).json({success: false});
     }
+}
+module.exports = {
+    verifyToken,
 };
-
-module.exports = verifyToken;

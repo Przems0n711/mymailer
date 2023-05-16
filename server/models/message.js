@@ -5,10 +5,10 @@ const messageSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    sender: {
+   sender: {
         type: String,
         required: true,
-    },
+   },
     receiver: {
         type: String,
         required: true,
@@ -19,10 +19,10 @@ const messageSchema = new mongoose.Schema({
     },
     read: {
         type: Boolean,
-        default: false,
+        required: true,
     }
 });
 
-const Message = mongoose.model('Message', messageSchema);
+const Message = mongoose.model('messages', messageSchema);
 
 module.exports = Message;

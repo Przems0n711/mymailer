@@ -8,9 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const navigate = useNavigate();
-
-    const notifyLoginError = () =>
+    const navigate = useNavigate();const notifyLoginError = () =>
         toast.error('Something went wrong');
 
     const handleLogin = async (event) => {
@@ -34,6 +32,16 @@ const Login = () => {
         }
     };
 
+    const handleLoginWithCredentials = () => {
+        const login = "your-login";
+        const password = "your-password";
+
+        emailRef.current.value = login;
+        passwordRef.current.value = password;
+
+        handleLogin(event);
+    };
+
     return (
         <div className="Login-container">
             <ToastContainer theme="dark" position="bottom-right" />
@@ -51,5 +59,4 @@ const Login = () => {
         </div>
     );
 };
-
 export default Login;

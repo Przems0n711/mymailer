@@ -6,7 +6,6 @@ import './Dash.scss';
 
 const Dash = () => {
     const [users, setUsers] = useState([]);
-
     const nameRef = useRef();
     const surnameRef = useRef();
     const emailRef = useRef();
@@ -31,31 +30,48 @@ const Dash = () => {
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
 
-    const addUser = async (e) => {
-        e.preventDefault();
-
+    const validateForm = () => {
         const name = nameRef.current.value;
         const surname = surnameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
         if (name.length < 5 || surname.length < 5 || password.length < 5 || isIncorrectEmail(email)) {
+            return false;
+        }
+
+        return true;
+    };
+
+    const addUser = async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
             console.log('Incorrect data');
             return;
         }
 
-        const data = { name, surname, email, password };
+        const data = {
+            name: nameRef.current.value,
+            surname: surnameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+        };
 
         try {
             const response = await axios.post('/api/users', data);
 
             if (response.data.success) {
                 getUsers();
-                notifySuccess('User successfully Added');
+                notifySuccess('User successfully added');
+                nameRef.current.value = '';
+                surnameRef.current.value = '';
+                emailRef.current.value = '';
+                passwordRef.current.value = '';
             }
         } catch (error) {
             console.error(error);
-            notifyError('Error');
+            notifyError('Error adding user');
         }
     };
 
@@ -83,7 +99,7 @@ const Dash = () => {
                 <input ref={nameRef} type="text" placeholder="Name" />
                 <input ref={surnameRef} type="text" placeholder="Surname" />
                 <input ref={emailRef} type="text" placeholder="Email" />
-                <input ref={passwordRef} type="text" placeholder="Password" />
+                <input ref={passwordRef} type="password" placeholder="Password" />
                 <button onClick={addUser}>Add User</button>
             </form>
             <h2 className="emailList">Email List</h2>
@@ -97,16 +113,12 @@ const Dash = () => {
                         <p className="surname">{user.surname.length < 25 ? user.surname : `${user.surname.substr(0, 22)}...`}</p>
                         <p className="email">{user.email.length < 25 ? user.email : `${user.email.substr(0, 22)}...`}</p>
                         <p className="password">{user.password.length < 25 ? user.password : `${user.password.substr(0, 22)}...`}</p>
-                        <button onClick={() => {
-                            removeUser(user._id)
-                        }
-                        }>Remove User
-                        </button>
+                        <button onClick={() => removeUser(user._id)}>Remove User</button>
                     </div>
                 ))}
             </div>
         </div>
-    )
+    );
 };
 
 export default Dash;

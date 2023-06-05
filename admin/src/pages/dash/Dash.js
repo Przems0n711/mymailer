@@ -10,6 +10,7 @@ const Dash = () => {
     const surnameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
+    const messageRef = useRef();
 
     const isIncorrectEmail = (mail) => {
         return !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail);
@@ -36,7 +37,12 @@ const Dash = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
-        if (name.length < 5 || surname.length < 5 || password.length < 5 || isIncorrectEmail(email)) {
+        if (
+            name.length < 5 ||
+            surname.length < 5 ||
+            password.length < 5 ||
+            isIncorrectEmail(email)
+        ) {
             return false;
         }
 
@@ -87,6 +93,27 @@ const Dash = () => {
         }
     };
 
+    const sendMessage = async (email) => {
+        const message = messageRef.current.value;
+
+        if (message.trim() === '') {
+            console.log('Message is empty');
+            return;
+        }
+
+        try {
+            const response = await axios.post('/api/send-message', { email, message });
+
+            if (response.data.success) {
+                notifySuccess('Message sent successfully');
+                messageRef.current.value = '';
+            }
+        } catch (error) {
+            console.error(error);
+            notifyError('Error sending message');
+        }
+    };
+
     useEffect(() => {
         getUsers();
     }, []);
@@ -109,13 +136,27 @@ const Dash = () => {
                 </div>
                 {users.map((user) => (
                     <div key={user._id} className="users">
-                        <p className="name">{user.name.length < 25 ? user.name : `${user.name.substr(0, 22)}...`}</p>
-                        <p className="surname">{user.surname.length < 25 ? user.surname : `${user.surname.substr(0, 22)}...`}</p>
-                        <p className="email">{user.email.length < 25 ? user.email : `${user.email.substr(0, 22)}...`}</p>
-                        <p className="password">{user.password.length < 25 ? user.password : `${user.password.substr(0, 22)}...`}</p>
+                        <p className="name">
+                            {user.name.length < 25 ? user.name : `${user.name.substr(0, 22)}...`}
+                        </p>
+                        <p className="surname">
+                            {user.surname.length < 25 ? user.surname : `${user.surname.substr(0, 22)}...`}
+                        </p>
+                        <p className="email">
+                            {user.email.length < 25 ? user.email : `${user.email.substr(0, 22)}...`}
+                        </p>
+                        <p className="password">
+                            {user.password.length < 25 ? user.password : `${user.password.substr(0, 22)}...`}
+                        </p>
                         <button onClick={() => removeUser(user._id)}>Remove User</button>
+                        <button onClick={() => sendMessage(user.email)}>Send Message</button>
                     </div>
                 ))}
+            </div>
+            <div className="messageContainer">
+                <h2>Send Message</h2>
+                <input ref={messageRef} type="text" placeholder="Message" />
+                <button onClick={() => sendMessage(emailRef.current.value)}>Send</button>
             </div>
         </div>
     );
